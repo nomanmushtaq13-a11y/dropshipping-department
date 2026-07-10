@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
+from src.config.settings import settings
+from src.utils.logger import log
 
-from datetime import datetime
-
-print("=" * 50)
-print("Dropshipping Department")
-print("Version: 0.8.0")
-print("Status : Development")
-print("Started:", datetime.now())
-print("=" * 50)
+log(f"{settings.APP_NAME} started.")
+log(f"Version: {settings.VERSION}")
+log(f"Product Database: {settings.PRODUCT_DB}")
