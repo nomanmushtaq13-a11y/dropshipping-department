@@ -1,38 +1,23 @@
 import sys
 
 from src.commands.products import run as products
+from src.commands.suppliers import run as suppliers
 
-COMMANDS = {
-    "products": products,
+COMMANDS={
+
+"products":products,
+
+"suppliers":suppliers
+
 }
 
-def help_menu():
-    print("""
-Dropshipping Department CLI
+if len(sys.argv)<2:
 
-Commands
+    print("Commands:")
+    print(" products")
+    print(" suppliers")
+    exit()
 
-products    View Product Database
+cmd=sys.argv[1]
 
-Example
-
-python src/main.py products
-""")
-
-def main():
-
-    if len(sys.argv) < 2:
-        help_menu()
-        return
-
-    command = sys.argv[1]
-
-    if command not in COMMANDS:
-        print("Unknown command")
-        help_menu()
-        return
-
-    COMMANDS[command]()
-
-if __name__ == "__main__":
-    main()
+COMMANDS.get(cmd,lambda:print("Unknown Command"))()

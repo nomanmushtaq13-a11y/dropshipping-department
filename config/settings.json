@@ -1,0 +1,8 @@
+{
+  "app_name":"Dropshipping Department",
+  "version":"1.0.0",
+  "country":"United States",
+  "currency":"USD",
+  "database":"database",
+  "backup":"backups"
+}
