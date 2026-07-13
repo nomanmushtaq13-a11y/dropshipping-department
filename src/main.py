@@ -1,23 +1,25 @@
-import sys
+try:
+    from src.commands.products import run as products
+except ImportError:
+    products = None
 
-from src.commands.products import run as products
-from src.commands.suppliers import run as suppliers
+try:
+    from src.commands.suppliers import run as suppliers
+except ImportError:
+    suppliers = None
 
-COMMANDS={
+from src.commands.search import run as search
 
-"products":products,
-
-"suppliers":suppliers
-
+COMMANDS = {
+    "products": products,
+    "suppliers": suppliers,
+    "search": search
 }
 
-if len(sys.argv)<2:
-
-    print("Commands:")
-    print(" products")
-    print(" suppliers")
-    exit()
-
-cmd=sys.argv[1]
-
-COMMANDS.get(cmd,lambda:print("Unknown Command"))()
+if __name__ == "__main__":
+    import sys
+    cmd = sys.argv[1] if len(sys.argv) > 1 else ""
+    if cmd in COMMANDS and COMMANDS[cmd]:
+        COMMANDS[cmd]()
+    else:
+        print(f"Command '{cmd}' not found or not configured.")
