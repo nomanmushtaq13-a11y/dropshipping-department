@@ -6,18 +6,19 @@ from src.commands.search import run as search
 from src.commands.stats import run as stats
 from src.commands.ranking import run as ranking
 from src.commands.export import run as export
+from src.commands.pipeline import run as pipeline
 
-COMMANDS={
-"products":products,
-"suppliers":suppliers,
-"search":search,
-"stats":stats,
-"ranking":ranking,
-"export":export
+COMMANDS = {
+    "products": products,
+    "suppliers": suppliers,
+    "search": search,
+    "stats": stats,
+    "ranking": ranking,
+    "export": export,
+    "pipeline": pipeline
 }
 
 def help_menu():
-
     print("""
 Dropshipping Department CLI
 
@@ -27,10 +28,12 @@ search
 stats
 ranking
 export
+pipeline
 """)
 
-if len(sys.argv)<2:
-    help_menu()
-    exit()
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        help_menu()
+        sys.exit(0)
 
-COMMANDS.get(sys.argv[1],help_menu)()
+    COMMANDS.get(sys.argv[1], help_menu)()
