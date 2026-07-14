@@ -7,6 +7,8 @@ from src.commands.stats import run as stats
 from src.commands.ranking import run as ranking
 from src.commands.export import run as export
 from src.commands.pipeline import run as pipeline
+from src.commands.research import run as research
+from src.commands.queue import run as queue
 
 COMMANDS = {
     "products": products,
@@ -15,7 +17,9 @@ COMMANDS = {
     "stats": stats,
     "ranking": ranking,
     "export": export,
-    "pipeline": pipeline
+    "pipeline": pipeline,
+    "research": research,
+    "queue": queue
 }
 
 def help_menu():
@@ -29,6 +33,8 @@ stats
 ranking
 export
 pipeline
+research
+queue
 """)
 
 if __name__ == "__main__":
