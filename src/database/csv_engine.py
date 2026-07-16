@@ -20,32 +20,33 @@ class CSVDatabase:
     def append(self,data):
 
         rows=self.read()
-
         rows.append(data)
+        self.write(rows,data.keys())
 
-        self.write(rows)
-
-    def write(self,rows):
-
-        if len(rows)==0:
-            return
+    def write(self,rows,headers=None):
 
         os.makedirs(os.path.dirname(self.path),exist_ok=True)
 
+        if headers is None:
+            if rows:
+                headers=rows[0].keys()
+            else:
+                headers=[]
+
         with open(self.path,"w",newline='',encoding='utf-8') as f:
 
-            writer=csv.DictWriter(f,fieldnames=rows[0].keys())
+            if headers:
+                writer=csv.DictWriter(f,fieldnames=headers)
+                writer.writeheader()
 
-            writer.writeheader()
-
-            writer.writerows(rows)
+                if rows:
+                    writer.writerows(rows)
 
     def find(self,key,value):
 
         for row in self.read():
 
             if row.get(key)==str(value):
-
                 return row
 
         return None
@@ -54,11 +55,10 @@ class CSVDatabase:
 
         rows=self.read()
 
-        for i,row in enumerate(rows):
+        for row in rows:
 
             if row.get(key)==str(value):
-
-                rows[i].update(new_data)
+                row.update(new_data)
 
         self.write(rows)
 
@@ -66,8 +66,9 @@ class CSVDatabase:
 
         rows=[r for r in self.read() if r.get(key)!=str(value)]
 
-        self.write(rows)
+        headers=rows[0].keys() if rows else ["id"]
+
+        self.write(rows,headers)
 
     def count(self):
-
         return len(self.read())
